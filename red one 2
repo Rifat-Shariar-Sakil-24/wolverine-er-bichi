@@ -1,0 +1,101 @@
+#include<iostream>
+using namespace std;
+#include "iGraphics.h"
+
+#define screenwidth 1100
+#define screenheight 900
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::Idraw Here::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+
+int mposx, mposy;
+
+int x = 100;
+int y = 200;
+
+int r = 255;
+int g = 255;
+int b = 255;
+
+int dx = 10;
+int dy = 10;
+
+int X = x;
+int Y = y;
+
+void iDraw()
+{
+
+	iClear();
+	iSetColor(255, 0, 0);
+
+	iFilledCircle(x, y, 10, 1000);
+
+	iSetColor(255, 255, 255);
+
+	iLine(100 - 10, 200 - 10, 1000 + 10, 200 - 10);
+	iLine(1000 + 10, 200 - 10, 1000 + 10, 900 + 10);
+	iLine(1000 + 10, 900 + 10, 100 - 10, 900 + 10);
+	iLine(100 - 10, 200 - 10, 100 - 10, 900 + 10);
+
+
+
+
+}
+
+
+
+
+void iMouseMove(int mx, int my)
+{
+	
+}
+
+void iPassiveMouseMove(int mx, int my)
+{
+
+}
+
+void iMouse(int button, int state, int mx, int my)
+{
+
+}
+
+
+
+void iKeyboard(unsigned char key)
+{
+
+}
+
+void change()
+{
+	x += dx;
+	y += dy;
+
+	r = rand() % 255;
+	g = rand() % 255;
+	b = rand() % 255;
+
+	if (x >= screenwidth - 100 || x <= 100)
+		dx *= (-1);
+
+	if (y >= screenheight || y <= 200)
+		dy *= (-1);
+}
+
+void iSpecialKeyboard(unsigned char key)
+{
+
+}
+
+
+
+int main()
+{
+	///srand((unsigned)time(NULL));
+	iSetTimer(30, change);
+	iInitialize(screenwidth, screenwidth, "Game Project");
+	///updated see the documentations
+	iStart();
+	return 0;
+}
