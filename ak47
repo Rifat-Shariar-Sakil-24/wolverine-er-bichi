@@ -1,0 +1,227 @@
+#include<iostream>
+using namespace std;
+#include "iGraphics.h"
+
+#define screenwidth 1100
+#define screenheight 900
+
+//:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::Idraw Here::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::://
+
+int mposx, mposy;
+
+bool musicOn = true;
+
+int x = 100; 
+int y = 220;
+
+int r = 255;
+int g = 255;
+int b = 255;
+
+int dx = 10;
+int dy = 10;
+
+int X = 550;
+int Y = 560;
+
+
+int dx2 = 10;
+int dy2 = 10;
+
+
+int x3 = 900;
+int y3 = 890;
+
+int dx3 = -10;
+int dy3 = -10;
+char s[1][200] = { "image\\milky.bmp" };
+
+
+
+int plate_x = 480;
+int plate_y = 190;
+
+
+
+
+void iDraw()
+{
+	
+	iClear();
+	iShowBMP(90,190,s[0]);
+
+	iSetColor(194,24,7);
+
+	iFilledCircle(x,y, 10, 1000);
+
+	iSetColor(116,190,88);
+	iFilledCircle(X, Y, 10, 1000);
+
+	iSetColor(119,200,205);
+	iFilledCircle(x3, y3, 10, 1000);
+
+	iSetColor(0,105,148);
+
+	iLine(100 - 10, 200 - 10, 1000 + 10, 200 - 10);
+	iLine(1000 + 10, 200 - 10, 1000 + 10, 900 + 10);
+	iLine(1000 + 10, 900 + 10, 100 - 10, 900 + 10);
+	iLine(100 - 10, 200 - 10, 100 - 10, 900 + 10);
+
+
+	iSetColor(100,100,100);
+	iFilledRectangle(plate_x, plate_y , 140, 15);
+
+
+
+	//iText(x, y, "wolverine er lal bichi", GLUT_BITMAP_TIMES_ROMAN_24);
+
+
+
+
+}
+
+
+
+
+void iMouseMove(int mx, int my)
+{
+
+}
+
+void iPassiveMouseMove(int mx, int my)
+{
+
+}
+
+void iMouse(int button, int state, int mx, int my)
+{
+
+}
+
+
+
+void iKeyboard(unsigned char key)
+{
+
+}
+
+
+void iSpecialKeyboard(unsigned char key)
+{
+	if (key == GLUT_KEY_RIGHT)
+	{
+	   
+	   if (plate_x <= 820)   
+		   plate_x += 50; /// 1010-50-140plate width
+	   else
+	   {
+		   int dif =1010 - (plate_x+140);
+		   plate_x += dif;
+	   }
+	}
+	else if (key == GLUT_KEY_LEFT)
+	{
+		if (plate_x >= 140) plate_x -= 50; // 90+50
+		else
+		{
+			int dif = plate_x - 90;
+			plate_x -= dif;
+		}
+	}
+
+	/*else if (key == GLUT_KEY_UP)
+	{
+	Y += 10;
+	}
+	else if (key == GLUT_KEY_DOWN)
+	{
+	Y -= 10;
+	}
+
+	else if (key == GLUT_KEY_HOME)
+	{
+
+	}*/
+}
+
+void change()
+{
+	x += dx;
+	y += dy;
+
+
+	X += dx2;
+	Y += dy2;
+
+	x3 += dx3;
+	y3 += dy3;
+
+
+	r = rand() % 255;
+	g = rand() % 255;
+	b = rand() % 255;
+
+	if (x >= screenwidth - 100 || x <= 100)
+		dx *= (-1);
+
+	if (y >= screenheight)
+		dy *= (-1);
+
+	if (y == 210)
+	{
+		//int left_range = x - 120, right_range = x + 120;
+		if (x <= plate_x+120 &&x >= plate_x) dy *= (-1);
+		
+	}
+
+	if (X >= screenwidth - 100 || X <= 100)
+		dx2 *= (-1);
+
+	if (Y >= screenheight)
+		dy2 *= (-1);
+
+	if (Y == 210)
+	{
+		//int left_range = x - 120, right_range = x + 120;
+		if (X <= plate_x + 120 && X >= plate_x) dy2 *= (-1);
+
+	}
+
+	
+	
+
+	if (x3 >= screenwidth - 100 || x3 <= 100)
+		dx3 *= (-1);
+
+
+
+	if (y3 >= screenheight)
+		dy3 *= (-1);
+
+	if (y3 == 210)
+	{
+		//int left_range = x - 120, right_range = x + 120;
+		if (x3 <= plate_x + 120 && x3 >= plate_x) dy3 *= (-1);
+
+	}
+
+	
+}
+
+
+
+int main()
+{
+	
+	///srand((unsigned)time(NULL));
+	iSetTimer(28, change);
+	
+	if (musicOn)
+	{
+		PlaySound("music\\sondia.wav", NULL, SND_LOOP | SND_ASYNC);
+	}
+	iInitialize(screenwidth, screenwidth, "Game Project");
+	///updated see the documentations
+	iStart();
+	return 0;
+}
